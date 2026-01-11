@@ -1,36 +1,105 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Impile Card Scrolling Animation
 
-First, run the development server:
+How to make a Impile Card Scrolling Animation using tailwindcss and React.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Introduction
+
+## Setting up the project
+
+To set up a new Next.js project, you can use the following command:.
+`npx create-next-app@latest`
+
+After that, install the required dependencies:
+`bash npm install framer-motion`
+
+Now you are ready to start
+## Implementation logic
+
+
+Start creating a new component called `Card.tsx` inside the `components` folder. The code below shows the basic structure of the component.
+
+```tsx
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+export default function Card({
+  src,
+  bg,
+  i = 0,
+}: {
+  src: string;
+  bg: string;
+  i?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start center", "center"],
+  });
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0.85, 1]
+  );
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, i * 60]);
+
+  // const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{
+        scale,
+        // opacity,
+        y,
+        zIndex: 10 + i,
+        position: "sticky",
+        top: 0,
+      }}
+      className={`w-full min-h-screen flex items-center justify-center ${bg}`}
+    >
+      <h1 className="text-white font-bold text-[12rem]">{src}</h1>
+    </motion.div>
+  );
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After that, you can use this component inside the `app/page.tsx` file to create the scrolling animation effect.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+"use client";
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+import Card from "@/components/Card";
 
-## Learn More
+export default function Home() {
+  return (
+    <main className="w-full bg-white dark:bg-black">
+      <section className="h-screen" />
 
-To learn more about Next.js, take a look at the following resources:
+      {/* STACK SECTION */}
+      <section className="relative h-[300vh] w-full flex flex-col items-center">
+        {[0,1,2].map((i) => (
+          <Card
+            key={i}
+            src={i.toString()}
+            i={i}
+            bg={i % 2 === 0 ? "bg-purple-600" : "bg-pink-600"}
+          />
+        ))}
+      </section>
+      <section className="relative z-20 h-screen bg-transparent" />
+    </main>
+  );
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Wrapping up
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# stack-card
