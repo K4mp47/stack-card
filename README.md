@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# Impile Card Scrolling Animation
+# Stack-card Scrolling Animation
 
 How to make a Impile Card Scrolling Animation using tailwindcss and React.
 
@@ -99,7 +99,3 @@ export default function Home() {
   );
 }
 ```
-
-## Wrapping up
-
-# stack-card
