@@ -1,8 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# Stack-card Scrolling Animation
+# Stack Card Scrolling Animation
 
-How to make a Impile Card Scrolling Animation using tailwindcss and React.
+How to make a Stack Card Scrolling Animation using tailwindcss and React.
 
 ## Introduction
 
